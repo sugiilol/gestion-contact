@@ -1,0 +1,26 @@
+.wrapper-table{
+    width: 100wh;
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-top: 50px; 
+}
+
+.custom-table-style{
+    background-color: var(--second-bg-color)!important;
+    color: white!important;
+}
+
+.custom-table-style th {
+    color: var(--second-font-color)!important;
+    font-size:larger;
+}
+
+.custom-table-style td{
+    color: var(--third-font-color)!important;
+    font-size: large;
+}
+
+
+
+
+
