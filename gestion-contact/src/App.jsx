@@ -1,13 +1,17 @@
 import './App.css'
 import Form from './Components/Form/Form'
 import TableCustom from './Components/TableCustom/TableCustom'
+import { Provider } from 'react-redux'
+import { contactStore } from './redux'
 
 function App() {
   
   return (
     <>
-      <Form />
-      <TableCustom />
+      <Provider store={contactStore}>
+        <Form />
+        <TableCustom />
+      </Provider>    
     </>
   )
 }

@@ -1,12 +1,11 @@
 import "./Form.css"
 import * as React from 'react';
 import { useState, useEffect } from "react";
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
 import { v4 as uuidv4 } from 'uuid';
+import {addContact, contacts } from "../Data/data"
 
 export default function Form() {
 
@@ -15,8 +14,6 @@ export default function Form() {
     const [cityState, setCityState] = useState('')
     const [phoneState, setPhoneState] = useState('')
     const [emailState, setEmailState] = useState('')
-
-    const [contactsListState, setContactsListState] = useState([])
 
     const surnameChange = (e) => {
         setSurnameState(e)
@@ -37,23 +34,24 @@ export default function Form() {
     const createNewContact = (e) => {
         e.preventDefault()
 
-        const newContact = {
-            id: uuidv4(),
-            surname: surnameState,
-            name: nameState,
-            city: cityState,
-            phone: phoneState,
-            email: emailState
+        if(surnameState != '' && nameState != '' && cityState != '' && phoneState != '' && emailState  != ''){
+            const newContact = {
+                id: uuidv4(),
+                surname: surnameState,
+                name: nameState,
+                city: cityState,
+                phone: phoneState,
+                email: emailState
+            }
+    
+           addContact(newContact)
+           console.log(contacts)
         }
-
-        const contacts = [...contactsListState]
-        contacts.push(newContact)
-        setContactsListState(contacts)
     }
 
     useEffect(() => {
-        console.log(contactsListState)
-    }, [contactsListState])
+       
+    }, [])
 
     return (
         <div className="custom-form-style">

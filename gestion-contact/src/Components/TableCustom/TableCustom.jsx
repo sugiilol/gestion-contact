@@ -9,18 +9,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import { useSelector } from "react-redux"
+
+
 export default function TableCustom() {
 
-    function createData(surName, name, age, city, phone, email) {
-        return { surName, name, age, city, phone, email };
-    }
-
-    const rows = [
-        createData("Leblanc", "Sébastien", 36, "Saint-Savournin", "06-59-05-38-31", "leblanc.sbt@gmail.com"),
-        createData("Patoulatchi", "Michel", 68, "Marseille", "06-58-45-68-71", "patou@gmail.com"),
-        createData("Doe", "John", 41, "Moncul", "06-80-05-63-39", "taggle@gmail.com"),
-        createData("Prout", "Paul", 36, "Paris", "06-59-55-38-31", "prout@gmail.com")
-    ];
+    const contacts = useSelector( (state) => state.contact)
 
     return (
         <div className='wrapper-table'>
@@ -38,19 +32,19 @@ export default function TableCustom() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {contacts.map((contact) => (
                             <TableRow
-                                key={row.surName}
+                                key={contact.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.surName}
+                                    {contact.surname}
                                 </TableCell>
-                                <TableCell align="right">{row.name}</TableCell>
-                                <TableCell align="right">{row.age}</TableCell>
-                                <TableCell align="right">{row.city}</TableCell>
-                                <TableCell align="right">{row.phone}</TableCell>
-                                <TableCell align="right">{row.email}</TableCell>
+                                <TableCell align="right">{contact.name}</TableCell>
+                                <TableCell align="right">{contact.age}</TableCell>
+                                <TableCell align="right">{contact.city}</TableCell>
+                                <TableCell align="right">{contact.phone}</TableCell>
+                                <TableCell align="right">{contact.email}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
