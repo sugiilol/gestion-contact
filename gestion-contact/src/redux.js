@@ -1,4 +1,4 @@
-import {configureStore, createSlice} from "@reduxjs/toolkit"
+import { configureStore, createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -20,29 +20,39 @@ const contactSlice = createSlice({
             city: "Marseille",
             phone: "0647589123",
             email: "patou@gmail.com"
+        },
+        {
+            id: uuidv4(),
+            surname: "Polopipo",
+            name: "Paul",
+            city: "Paris",
+            phone: "0647589723",
+            email: "polopiou@gmail.com"
         }
     ],
-    reducers : {
+    reducers: {
         addContact: (state, action) => {
             // "contact/addContact"
             const newContact = {
                 id: uuidv4(),
-                surname: action.surname,
-                name: action.name,
-                city: action.city,
-                phone: action.phone,
-                email: action.email
+                surname: action.payload.surname,
+                name: action.payload.name,
+                city: action.payload.city,
+                phone: action.payload.phone,
+                email: action.payload.email
             }
             state.push(newContact)
         },
         deleteContact: (state, action) => {
             // "contact/deleteContact"
+            state = state.filter((contact) => contact.id !== action.payload)
+            return state
         },
     }
 })
 
 export const contactStore = configureStore({
-    reducer:{
+    reducer: {
         contact: contactSlice.reducer
     }
 })

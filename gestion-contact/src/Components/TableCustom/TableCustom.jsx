@@ -1,6 +1,8 @@
 import * as React from 'react';
 import "./TableCustom.css"
 
+import { useDispatch } from "react-redux"
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,13 +10,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 import { useSelector } from "react-redux"
 
 
 export default function TableCustom() {
 
-    const contacts = useSelector( (state) => state.contact)
+    const contacts = useSelector((state) => state.contact)
+    const dispatch = useDispatch()
+
+    const handleDeleteContact = (id) => {
+        dispatch({
+            type: "contact/deleteContact",
+            payload: id
+        })
+    }
 
     return (
         <div className='wrapper-table'>
@@ -29,6 +42,7 @@ export default function TableCustom() {
                             <TableCell align="right">Ville</TableCell>
                             <TableCell align="right">Téléphone</TableCell>
                             <TableCell align="right">Email</TableCell>
+                            <TableCell align="right"></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -45,6 +59,11 @@ export default function TableCustom() {
                                 <TableCell align="right">{contact.city}</TableCell>
                                 <TableCell align="right">{contact.phone}</TableCell>
                                 <TableCell align="right">{contact.email}</TableCell>
+                                <TableCell align="right">
+                                    <IconButton aria-label="delete" onClick={() => handleDeleteContact(contact.id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

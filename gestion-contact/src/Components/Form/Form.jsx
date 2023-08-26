@@ -1,13 +1,14 @@
 import "./Form.css"
 import * as React from 'react';
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux"
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { v4 as uuidv4 } from 'uuid';
-import {addContact, contacts } from "../Data/data"
 
 export default function Form() {
+
+    const dispatch = useDispatch()
 
     const [surnameState, setSurnameState] = useState('')
     const [nameState, setNameState] = useState('')
@@ -31,27 +32,31 @@ export default function Form() {
         setEmailState(e)
     }
 
-    const createNewContact = (e) => {
-        e.preventDefault()
-
-        if(surnameState != '' && nameState != '' && cityState != '' && phoneState != '' && emailState  != ''){
-            const newContact = {
-                id: uuidv4(),
-                surname: surnameState,
-                name: nameState,
-                city: cityState,
-                phone: phoneState,
-                email: emailState
-            }
-    
-           addContact(newContact)
-           console.log(contacts)
-        }
+    const resetForm = () => {
+        setSurnameState('')
+        setNameState('')
+        setCityState('')
+        setPhoneState('')
+        setEmailState('')
     }
 
-    useEffect(() => {
-       
-    }, [])
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if (surnameState !== '' && nameState !== '' && cityState !== '' && phoneState !== '' && emailState !== '') {
+            dispatch({
+                type: "contact/addContact",
+                payload: {
+                    surname: surnameState,
+                    name: nameState,
+                    city: cityState,
+                    phone: phoneState,
+                    email: emailState
+                }
+            })
+            resetForm()
+        }
+    }
 
     return (
         <div className="custom-form-style">
@@ -62,13 +67,13 @@ export default function Form() {
                 sx={{ '& > :not(style)': { m: 1, width: '25ch' }, }}
                 noValidate
                 autoComplete="off"
-                onSubmit={createNewContact}
+                onSubmit={handleSubmit}
             >
-                <TextField className="custom-input-style" id="surName" label="Nom" variant="outlined" onChange={e => surnameChange(e.target.value)} />
-                <TextField className="custom-input-style" id="name" label="Prénom" variant="outlined" onChange={e => nameChange(e.target.value)} /><br />
-                <TextField className="custom-input-style" id="city" label="Ville" variant="outlined" onChange={e => cityChange(e.target.value)} />
-                <TextField className="custom-input-style" id="phone" label="Téléphone" variant="outlined" onChange={e => phoneChange(e.target.value)} /><br />
-                <TextField className="custom-input-style" id="email" label="Email" variant="outlined" onChange={e => emailChange(e.target.value)} />
+                <TextField className="custom-input-style" id="surName" label="Nom" value={surnameState} variant="outlined" onChange={e => surnameChange(e.target.value)} />
+                <TextField className="custom-input-style" id="name" label="Prénom" value={nameState} variant="outlined" onChange={e => nameChange(e.target.value)} /><br />
+                <TextField className="custom-input-style" id="city" label="Ville" value={cityState} variant="outlined" onChange={e => cityChange(e.target.value)} />
+                <TextField className="custom-input-style" id="phone" label="Téléphone" value={phoneState} variant="outlined" onChange={e => phoneChange(e.target.value)} /><br />
+                <TextField className="custom-input-style" id="email" label="Email" value={emailState} variant="outlined" onChange={e => emailChange(e.target.value)} />
                 <Button className="custom-button-style" variant="outlined" type="submit">Valider</Button>
             </Box>
         </div>
