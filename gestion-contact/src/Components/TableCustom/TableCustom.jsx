@@ -1,5 +1,6 @@
 import * as React from 'react';
 import "./TableCustom.css"
+import ModalFormCustom from '../ModalFormCustom/ModalFormCustom'
 
 import { useDispatch } from "react-redux"
 
@@ -12,6 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+
 
 
 import { useSelector } from "react-redux"
@@ -62,6 +64,9 @@ export default function TableCustom() {
                                 <TableCell align="right">
                                     <IconButton aria-label="delete" onClick={() => handleDeleteContact(contact.id)}>
                                         <DeleteIcon />
+                                    </IconButton>
+                                    <IconButton aria-label="edit">
+                                        <ModalFormCustom contact={contact}/>
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
