@@ -48,6 +48,22 @@ const contactSlice = createSlice({
             state = state.filter((contact) => contact.id !== action.payload)
             return state
         },
+        editContact(state, action){
+            //"contact/editContact"
+            console.log("1=>" , state)
+            state = state.filter((contact) => contact.id !== action.payload.id)
+            const newContact = {
+                id: action.payload.id,
+                surname: action.payload.surname,
+                name: action.payload.name,
+                city: action.payload.city,
+                phone: action.payload.phone,
+                email: action.payload.email
+            }
+            state.push(newContact)
+            console.log("2=>" , state)
+            return state
+        }
     }
 })
 

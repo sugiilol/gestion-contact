@@ -74,7 +74,7 @@ export default function Form() {
                 <TextField className="custom-input-style" id="city" label="Ville" value={cityState} variant="outlined" onChange={e => cityChange(e.target.value)} />
                 <TextField className="custom-input-style" id="phone" label="Téléphone" value={phoneState} variant="outlined" onChange={e => phoneChange(e.target.value)} /><br />
                 <TextField className="custom-input-style" id="email" label="Email" value={emailState} variant="outlined" onChange={e => emailChange(e.target.value)} />
-                <Button className="custom-button-style" variant="outlined" type="submit">Valider</Button>
+                <Button className="custom-button-style" variant="outlined" type="submit">Valider</Button>              
             </Box>
         </div>
 

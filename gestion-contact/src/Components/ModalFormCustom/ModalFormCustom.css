@@ -1,0 +1,37 @@
+.custom-form-style {
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.custom-form-style hr {
+    height: 3px;
+    width: 250px;
+    background-color: var(--main-font-color);
+    border: none;
+}
+
+.custom-input-style {
+    color: var(--main-font-color) !important;
+    border-color: var(--main-font-color) !important;
+    width: 198px !important;
+    height: 56px;
+}
+
+.custom-input-style:hover {
+    border-color: var(--main-font-color) !important;
+}
+
+.custom-button-style {
+    color: var(--main-font-color) !important;
+    border-color: var(--main-font-color) !important;
+    width: 198px !important;
+    height: 56px;
+}
+
+.custom-button-style:hover {
+    border-color: var(--main-font-color) !important;
+    background-color: var(--second-bg-color) !important;
+}
