@@ -29,7 +29,6 @@ export default function TableCustom() {
                         <TableRow>
                             <TableCell>Nom</TableCell>
                             <TableCell align="right">Prénom</TableCell>
-                            <TableCell align="right">Age</TableCell>
                             <TableCell align="right">Ville</TableCell>
                             <TableCell align="right">Téléphone</TableCell>
                             <TableCell align="right">Email</TableCell>
@@ -46,7 +45,6 @@ export default function TableCustom() {
                                     {contact.surname}
                                 </TableCell>
                                 <TableCell align="right">{contact.name}</TableCell>
-                                <TableCell align="right">{contact.age}</TableCell>
                                 <TableCell align="right">{contact.city}</TableCell>
                                 <TableCell align="right">{contact.phone}</TableCell>
                                 <TableCell align="right">{contact.email}</TableCell>
