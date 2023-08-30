@@ -1,8 +1,7 @@
 import * as React from 'react';
 import "./TableCustom.css"
 import ModalFormCustom from '../ModalFormCustom/ModalFormCustom'
-
-import { useDispatch } from "react-redux"
+import ModalValidationDeleteCustom from '../ModalValidationDeleteCustom/ModalValidationDeleteCustom';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,7 +11,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useSelector } from "react-redux"
 
@@ -20,14 +18,7 @@ import { useSelector } from "react-redux"
 export default function TableCustom() {
 
     const contacts = useSelector((state) => state.contact)
-    const dispatch = useDispatch()
-
-    const handleDeleteContact = (id) => {
-        dispatch({
-            type: "contact/deleteContact",
-            payload: id
-        })
-    }
+    
 
     return (
         <div className='wrapper-table'>
@@ -60,8 +51,9 @@ export default function TableCustom() {
                                 <TableCell align="right">{contact.phone}</TableCell>
                                 <TableCell align="right">{contact.email}</TableCell>
                                 <TableCell align="right">
-                                    <IconButton aria-label="delete" onClick={() => handleDeleteContact(contact.id)}>
-                                        <DeleteIcon />
+                                    <IconButton aria-label="delete">
+                                        {/* <DeleteIcon /> */}
+                                        <ModalValidationDeleteCustom contact={contact}/>
                                     </IconButton>
                                     <IconButton aria-label="edit">
                                         <ModalFormCustom contact={contact}/>
