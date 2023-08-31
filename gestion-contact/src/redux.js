@@ -1,6 +1,23 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from 'uuid';
 
+import { addDoc, collection } from 'firebase/firestore';
+import {db} from './firebase.config'
+
+try {
+    const docRef = await addDoc(collection(db, "contacts"), {   
+        id: uuidv4(),
+        surname: "Leblanc",
+        name: "Sébastien",
+        city: "Saint-Savournin",
+        phone: "0659053831",
+        email: "leblanc.sbt@gmail.com" 
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+
 
 const contactSlice = createSlice({
     name: "contact",
