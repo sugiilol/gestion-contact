@@ -14,11 +14,18 @@ import IconButton from '@mui/material/IconButton';
 
 import { useSelector } from "react-redux"
 
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../../firebase.config'
+
+const querySnapshot = await getDocs(collection(db, "contacts"));
+querySnapshot.forEach((doc) => {
+    // console.log(`${doc.id} => ${doc.data()}`);
+    console.log(doc)
+});
 
 export default function TableCustom() {
 
     const contacts = useSelector((state) => state.contact)
-    
 
     return (
         <div className='wrapper-table'>
@@ -51,10 +58,10 @@ export default function TableCustom() {
                                 <TableCell align="right">
                                     <IconButton aria-label="delete">
                                         {/* <DeleteIcon /> */}
-                                        <ModalValidationDeleteCustom contact={contact}/>
+                                        <ModalValidationDeleteCustom contact={contact} />
                                     </IconButton>
                                     <IconButton aria-label="edit">
-                                        <ModalFormCustom contact={contact}/>
+                                        <ModalFormCustom contact={contact} />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
