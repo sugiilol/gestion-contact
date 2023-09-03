@@ -14,19 +14,10 @@ import IconButton from '@mui/material/IconButton';
 
 import { useSelector } from "react-redux"
 
-import { collection, getDocs } from "firebase/firestore";
-import { db } from '../../firebase.config'
-
-const querySnapshot = await getDocs(collection(db, "contacts"));
-querySnapshot.forEach((doc) => {
-    // console.log(`${doc.id} => ${doc.data()}`);
-    console.log(doc)
-});
-
 export default function TableCustom() {
 
     const contacts = useSelector((state) => state.contact)
-
+    
     return (
         <div className='wrapper-table'>
             <h2>Liste de contacts</h2>

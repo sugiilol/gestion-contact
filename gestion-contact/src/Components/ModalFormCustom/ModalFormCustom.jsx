@@ -65,6 +65,7 @@ export default function ModalFormCustom(props) {
         type: "contact/editContact",
         payload: {
           id: props.contact.id,
+          idFireStore: props.contact.idFireStore,
           surname: surnameState,
           name: nameState,
           city: cityState,
@@ -94,11 +95,11 @@ export default function ModalFormCustom(props) {
         >
           <h2>Modifier {props.contact.surname} {props.contact.name}</h2>
           <hr /><br />
-          <TextField inputClassName="custom-input-style" id="surName" label="Nom" value={surnameState} variant="outlined" onChange={e => surnameChange(e.target.value)} /><br />
-          <TextField inputClassName="custom-input-style" id="name" label="Prénom" value={nameState} variant="outlined" onChange={e => nameChange(e.target.value)} /><br />
-          <TextField inputClassName="custom-input-style" id="city" label="Ville" value={cityState} variant="outlined" onChange={e => cityChange(e.target.value)} /><br />
-          <TextField inputClassName="custom-input-style" id="phone" label="Téléphone" value={phoneState} variant="outlined" onChange={e => phoneChange(e.target.value)} /><br />
-          <TextField inputClassName="custom-input-style" id="email" label="Email" value={emailState} variant="outlined" onChange={e => emailChange(e.target.value)} /><br />
+          <TextField inputclassname="custom-input-style" id="surName" label="Nom" value={surnameState} variant="outlined" onChange={e => surnameChange(e.target.value)} /><br />
+          <TextField inputclassname="custom-input-style" id="name" label="Prénom" value={nameState} variant="outlined" onChange={e => nameChange(e.target.value)} /><br />
+          <TextField inputclassname="custom-input-style" id="city" label="Ville" value={cityState} variant="outlined" onChange={e => cityChange(e.target.value)} /><br />
+          <TextField inputclassname="custom-input-style" id="phone" label="Téléphone" value={phoneState} variant="outlined" onChange={e => phoneChange(e.target.value)} /><br />
+          <TextField inputclassname="custom-input-style" id="email" label="Email" value={emailState} variant="outlined" onChange={e => emailChange(e.target.value)} /><br />
           <Button className="custom-button-style" variant="outlined" type="submit">Valider</Button>
         </Box>
       </Modal>

@@ -32,6 +32,8 @@ export default function ModalValidationDeleteCustom(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    console.log(props)
+
     const dispatch = useDispatch()
 
     const handleDeleteContact = (id) => {
@@ -58,8 +60,8 @@ export default function ModalValidationDeleteCustom(props) {
                     <h2>supprimer {props.contact.surname} {props.contact.name} ??</h2>
                     <br />
                     <Stack direction="row" spacing={2}>
-                        <Button onClick={() => handleDeleteContact(props.contact.id)}>Valider</Button>
-                        <Button onClick={() => handleClose()}>Annuler</Button>                      
+                        <Button onClick={() => handleDeleteContact(props.contact.idFireStore)}>Valider</Button>
+                        <Button onClick={() => handleClose()}>Annuler</Button>
                     </Stack>
                 </Box>
             </Modal>

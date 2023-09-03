@@ -1,67 +1,78 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from 'uuid';
-
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, getDocs, collection, doc, deleteDoc, updateDoc, setDoc } from 'firebase/firestore';
 import { db } from './firebase.config'
+
+const querySnapshot = await getDocs(collection(db, "contacts"));
+const arrContacts = []
+
+const refreshContactsState = () => {
+    querySnapshot.forEach((doc) => {
+        const contact = {
+            id: uuidv4(),
+            idFireStore: doc.id,
+            surname: doc.data().surname,
+            name: doc.data().name,
+            city: doc.data().city,
+            phone: doc.data().phone,
+            email: doc.data().email
+        }
+        arrContacts.push(contact)
+        //console.log(doc.id, " => ", doc.data());
+        //console.log(arrContacts)
+    });
+}
+
+refreshContactsState()
 
 const contactSlice = createSlice({
     name: "contact",
-    initialState: [
-        {
-            id: uuidv4(),
-            surname: "Leblanc",
-            name: "Sébastien",
-            city: "Saint-Savournin",
-            phone: "0659053831",
-            email: "leblanc.sbt@gmail.com"
-        },
-        {
-            id: uuidv4(),
-            surname: "Patoulatchi",
-            name: "Michel",
-            city: "Marseille",
-            phone: "0647589123",
-            email: "patou@gmail.com"
-        },
-        {
-            id: uuidv4(),
-            surname: "Polopipo",
-            name: "Paul",
-            city: "Paris",
-            phone: "0647589723",
-            email: "polopiou@gmail.com"
-        }
-    ],
+    initialState: [...arrContacts],
     reducers: {
         addContact: (state, action) => {
             // "contact/addContact"
-            // const newContact = {
-            //     id: uuidv4(),
-            //     surname: action.payload.surname,
-            //     name: action.payload.name,
-            //     city: action.payload.city,
-            //     phone: action.payload.phone,
-            //     email: action.payload.email
+
+            const idNewContact = uuidv4()
+
+            setDoc(doc(db, "contacts", idNewContact), {
+                id: idNewContact,
+                surname: action.payload.surname,
+                name: action.payload.name,
+                city: action.payload.city,
+                phone: action.payload.phone,
+                email: action.payload.email
+            });
+
+            // try {
+            //     const docRef = addDoc(collection(db, "contacts"), {
+            //         id: uuidv4(),
+            //         surname: action.payload.surname,
+            //         name: action.payload.name,
+            //         city: action.payload.city,
+            //         phone: action.payload.phone,
+            //         email: action.payload.email
+            //     });
+            //     console.log("Document written with ID: ", docRef.id);
+            // } catch (e) {
+            //     console.error("Error adding document: ", e);
             // }
-            // state.push(newContact)
-            try {
-                const docRef = addDoc(collection(db, "contacts"), {
-                    id: uuidv4(),
-                    surname: action.payload.surname,
-                    name: action.payload.name,
-                    city: action.payload.city,
-                    phone: action.payload.phone,
-                    email: action.payload.email
-                });
-                console.log("Document written with ID: ", docRef.id);
-                console.log(docRef)
-            } catch (e) {
-                console.error("Error adding document: ", e);
+
+            const newContact = {
+                id: idNewContact,
+                idFireStore: idNewContact,
+                surname: action.payload.surname,
+                name: action.payload.name,
+                city: action.payload.city,
+                phone: action.payload.phone,
+                email: action.payload.email
             }
+            state.push(newContact)
+
         },
         deleteContact: (state, action) => {
             // "contact/deleteContact"
-            state = state.filter((contact) => contact.id !== action.payload)
+            state = state.filter((contact) => contact.idFireStore !== action.payload)
+            deleteDoc(doc(db, "contacts", action.payload));
             return state
         },
         editContact(state, action) {
@@ -70,14 +81,29 @@ const contactSlice = createSlice({
             state = state.filter((contact) => contact.id !== action.payload.id)
             const newContact = {
                 id: action.payload.id,
+                idFireStore: action.payload.idFireStore,
                 surname: action.payload.surname,
                 name: action.payload.name,
                 city: action.payload.city,
                 phone: action.payload.phone,
                 email: action.payload.email
             }
+
+            const cityRef = doc(db, 'contacts', action.payload.idFireStore);
+
+            // Remove the 'capital' field from the document
+            updateDoc(cityRef, {
+                id: action.payload.id,
+                surname: action.payload.surname,
+                name: action.payload.name,
+                city: action.payload.city,
+                phone: action.payload.phone,
+                email: action.payload.email
+            });
+
+
             state.push(newContact)
-            console.log("2=>", state)
+            //console.log("2=>", state)
             return state
         }
     }

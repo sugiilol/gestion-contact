@@ -77,6 +77,5 @@ export default function Form() {
                 <Button className="custom-button-style" variant="outlined" type="submit">Valider</Button>              
             </Box>
         </div>
-
     )
 }
